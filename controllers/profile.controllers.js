@@ -2,7 +2,7 @@ const Profile = require("../models/profile.models");
 
 const getProfile = async (req, res) => {
     try {
-        const profile = req.profile;
+        const profile = req.user.profile;
         return res.status(200).json(profile);
     } catch (err) {
         return res.status(500).json(err);
