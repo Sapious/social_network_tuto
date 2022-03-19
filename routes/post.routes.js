@@ -1,5 +1,6 @@
 const {
     createPost,
+    sharePost,
     getPost,
     getPosts,
     deletePost,
@@ -70,16 +71,19 @@ router.param("reaction", async (req, res, next, reactionId) => {
 //post routes
 router.post("/", verifyToken, createPost);
 router.get("/", getPosts);
+router.post("/:post", verifyToken, sharePost)
 router.get("/:post", getPost);
 router.put("/:post", verifyToken, updatePost);
 router.delete("/:post", verifyToken, deletePost);
-//comments routes
-router.post("/:post/comments", verifyToken, createComment);
-router.get("/:post/comments", getComments);
+
+//comment routes
+router.post("/:post", verifyToken, createComment);
+router.get("/:post", getComments);
 router.post("/:post/comments/:comment", verifyToken, createReply);
 router.put("/:post/comments/:comment", verifyToken, isCommentOwner, updateComment);
 router.delete("/:post/:comment", verifyToken, isCommentOwner, deleteComment);
-// reactions routes
+
+// reaction routes
 router.get("/:post/like", verifyToken, likePost);
 router.get("/:post/dislike", verifyToken, dislikePost);
 router.delete("/:post/:reaction", verifyToken, isReactionOwner, removeReaction);

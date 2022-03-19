@@ -37,7 +37,8 @@ router.param("user", async (req, res, next, userId) => {
 });
 
 router.get("/:user/:profile", getProfile);
-router.put("/:user/:profile", verifyToken, isProfileOwner, updateProfile);
 router.get("/:user/me", verifyToken, getMyProfile);
+router.put("/:user/:profile", verifyToken, isProfileOwner, updateProfile);
+
 
 module.exports = router;

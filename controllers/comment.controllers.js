@@ -1,4 +1,5 @@
 const Comment = require("../models/comment.models");
+const Activity = require("../models/activity.models")
 
 const createComment = async (req, res) => {
     const newComment = new Comment({
@@ -8,6 +9,12 @@ const createComment = async (req, res) => {
     });
     try {
         const savedComment = await newComment.save();
+        const newActivity = new Activity({
+            activity: savedComment._id,
+            activityModel: "Comment",
+            user: req.verifiedUser._id,
+        });
+        await newActivity.save();
         return res.status(201).json(savedComment);
     } catch (err) {
         return res.status(500).json(err);
